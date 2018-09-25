@@ -1,0 +1,521 @@
+{% extends "base.html" %}
+{% block title %}i{% endblock %}
+
+
+  {{ super() }}
+  {% block content %}
+  <link href="https://fonts.googleapis.com/css?family=Acme|Anton|Baloo+Tammudu|Bitter|Dancing+Script|Fjalla+One|Gloria+Hallelujah|Lobster|Merriweather+Sans|Nunito|Pacifico|Righteous|Sawarabi+Mincho|Shadows+Into+Light|Slabo+27px" rel="stylesheet">
+  <style type="text/css">
+  * {
+    transition: .3s;
+  }
+    .hoverBtn { }
+    .hoverBtn:hover {
+      color: red !important;
+      cursor: pointer;
+      transition: .3s;
+      transform: scale(1.3);
+    }
+    .hoverBtn2 {
+      color: red !important;
+      text-shadow: rgb(0, 0, 0) 5px 0px 0px, rgb(0, 0, 0) 4.90033px 0.993347px 0px, rgb(0, 0, 0) 4.60531px 1.94709px 0px, rgb(0, 0, 0) 4.12668px 2.82321px 0px, rgb(0, 0, 0) 3.48353px 3.58678px 0px, rgb(0, 0, 0) 2.70151px 4.20736px 0px, rgb(0, 0, 0) 1.81179px 4.6602px 0px, rgb(0, 0, 0) 0.849836px 4.92725px 0px, rgb(0, 0, 0) -0.145998px 4.99787px 0px, rgb(0, 0, 0) -1.13601px 4.86924px 0px, rgb(0, 0, 0) -2.08073px 4.54649px 0px, rgb(0, 0, 0) -2.94251px 4.04248px 0px, rgb(0, 0, 0) -3.68697px 3.37732px 0px, rgb(0, 0, 0) -4.28444px 2.57751px 0px, rgb(0, 0, 0) -4.71111px 1.67494px 0px, rgb(0, 0, 0) -4.94996px 0.7056px 0px, rgb(0, 0, 0) -4.99147px -0.291871px 0px, rgb(0, 0, 0) -4.83399px -1.27771px 0px, rgb(0, 0, 0) -4.48379px -2.2126px 0px, rgb(0, 0, 0) -3.95484px -3.05929px 0px, rgb(0, 0, 0) -3.26822px -3.78401px 0px, rgb(0, 0, 0) -2.4513px -4.35788px 0px, rgb(0, 0, 0) -1.53666px -4.75801px 0px, rgb(0, 0, 0) -0.560763px -4.96845px 0px, rgb(0, 0, 0) 0.437495px -4.98082px 0px, rgb(0, 0, 0) 1.41831px -4.79462px 0px, rgb(0, 0, 0) 2.34258px -4.41727px 0px, rgb(0, 0, 0) 3.17346px -3.86382px 0px, rgb(0, 0, 0) 3.87783px -3.15633px 0px, rgb(0, 0, 0) 4.4276px -2.32301px 0px, rgb(0, 0, 0) 4.80085px -1.39708px 0px, rgb(0, 0, 0) 4.98271px -0.415447px 0px;
+    }
+    .hoverBtn3 {
+      color: #ffcb0f !important;
+      transform: scale(1.5);
+      text-shadow: rgb(0, 0, 0) 2px 0px 0px, rgb(0, 0, 0) 1.75517px 0.958851px 0px, rgb(0, 0, 0) 1.0806px 1.68294px 0px, rgb(0, 0, 0) 0.141474px 1.99499px 0px, rgb(0, 0, 0) -0.832294px 1.81859px 0px, rgb(0, 0, 0) -1.60229px 1.19694px 0px, rgb(0, 0, 0) -1.97998px 0.28224px 0px, rgb(0, 0, 0) -1.87291px -0.701566px 0px, rgb(0, 0, 0) -1.30729px -1.5136px 0px, rgb(0, 0, 0) -0.421592px -1.95506px 0px, rgb(0, 0, 0) 0.567324px -1.91785px 0px, rgb(0, 0, 0) 1.41734px -1.41108px 0px, rgb(0, 0, 0) 1.92034px -0.558831px 0px;
+    }
+    .opacity {
+      opacity: .3;
+    }
+    .hoverBtn2:hover {
+      color: red;
+      cursor: pointer;
+      transition: .3s;
+    }
+    .hoverBtn3:hover {
+      color: #ffcb0f;
+      cursor: pointer;
+      transition: .3s;
+    }
+    .modal {
+      background-color:#e1e9f7;
+      width: 100%;
+      height: 50px;
+      position: fixed;
+      z-i: 2;
+      border-radius: 10px;
+      overflow-y: scroll;
+      top:20%;
+    }
+    p {
+      margin-left: 10px;
+    }
+    .submit2 {
+      background-color: #7592c4;
+      color: white;
+      height: 25px;
+      cursor: pointer;
+      font-size: 20px;
+      border-style: solid;
+      border-width: 1px;
+      border-color: black;
+      margin-left: 10px;
+    }
+  </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type='text/javascript'>
+  $(document).ready(function(){
+    var graphData = {{ result[0]|tojson }};
+    var searchterm = {{ result[1]|tojson }};
+    var allResults = {{ result|tojson }};
+    console.log(allResults);
+
+    
+    var arrFonts = ['Slabo 27px', 'Sawarabi Mincho', 'Baloo Tammudu', 'Nunito', 'Anton', 'Bitter', 'Fjalla One', 'Lobster', 'Pacifico', 'Shadows Into Light', 'Dancing Script', 'Merriweather Sans', 'Righteous', 'Acme', 'Gloria Hallelujah'];
+    color0 = '#'+Math.floor(Math.random()*16777215).toString(16);
+    color1 =  '#'+Math.floor(Math.random()*16777215).toString(16);
+    color2 = '#'+Math.floor(Math.random()*16777215).toString(16);
+    color3 = '#'+Math.floor(Math.random()*16777215).toString(16);
+    color4 = '#'+Math.floor(Math.random()*16777215).toString(16);
+    color5 = '#'+Math.floor(Math.random()*16777215).toString(16);
+    color6 = '#'+Math.floor(Math.random()*16777215).toString(16);
+    color7 = '#'+Math.floor(Math.random()*16777215).toString(16);
+    color8 = '#'+Math.floor(Math.random()*16777215).toString(16);
+    var randFont = arrFonts[Math.floor(Math.random() * arrFonts.length)];
+    var wordsearched =   `<a class="hoverBtn2" style="Font-Family:${randFont},sans-serif;position:fixed;top:50%;left:50%;font-size:45px;">${searchterm}</a>
+      `;
+    $('#display1').append(wordsearched)
+    var top = 50;
+    var left = 50;
+    var skinTone1 =     ['#8d5524','#c68642','#e0ac69','#f1c27d','#ffdbac'];
+    var griffindor =    ['#740001','#ae0001','#eeba30','#d3a625','#000000'];
+    var bluegray =      ['#6e7f80','#536872','#708090','#536878','#36454f'];
+    var downtown =      ['#373854','#493267','#9e379f','#e86af0','#7bb3ff'];
+    var lightblues =    ['#009688','#35a79c','#54b2a9','#65c3ba','#83d0c9'];
+    var darkTones1 =    ['#9c7248','#926a2d','#876127','#7c501a','#6f4f1d'];
+    var summertime =    ['#e8d174','#e39e54','#d64d4d','#4d7358','#9ed670'];
+    var nightroses =    ['#3d482f','#1c1d1d','#903e5a','#cb738d','#efa5a9'];
+    var coolcolors =    ['#050f42','#084c61','#0d94a3','#d34410','#ff6e00'];
+    var winered =       ['#b5a69f','#34333a','#19191a','#3e0123','#b40036'];
+    var dustybeach =    ['#ffd0b5','#f0b27c','#cf703f','#ace9e7','#5780cd'];
+    var saltlamp =      ['#895151','#b47a5a','#964f30','#674154','#6b3232'];
+    var junkCarLot =    ['#df9436','#c77521','#ae601f','#9a541a','#894517'];
+    var autumnColors =  ['#c1b687','#e7b078','#ce6c31','#c73c25','#942a0e'];
+    var cherrySoda =    ['#340517','#650a2d','#991044','#e51865','#ff1a72'];
+    var blues = ['#3B5323',  '#458B00', '#8BA870', '#5A6351', '#66CD00', '#397D02', '#748269', '#3F602B', '#699864',  '#215E21', '#008000', '#3F9E4D', '#31B94D', '#0E8C3A', '#00C957',  '#00FF66'];
+    var reds = ['#8B6969',   '#BC8F8F',   '#C67171' ,   '#CD5555' ,   '#8E2323' ,   '#A52A2A' ,  '#CC3232' ,  '#DB2929' ,  '#FF0000',   '#660000',  '#A02422',  '#FA8072',];
+    var oranges = ['#CD3700',   '#5E2612',   '#E04006',  '#EE4000',  '#B13E0F',  '#8B5742',   '#993300',  '#8B4726',  '#F87531', '#FF6103',  '#FF7722',  '#CD661D'];
+    var greens = ['#DAA520',  '#EEB422', '#CD950C', '#E6B426', '#CDAB2D', '#8B6914', '#8B6508', '#EEAD0E', '#FFCC11',  '#FFAA00', '#DC8909', '#ED9121'];
+    var purples = ['#38B8B',  '#5F9F9F', '#2F4F4F', '#528B8B', '#388E8E', '#53868B', '#50A6C2', '#00688B', '#6996AD', '#33A1DE', '#4A708B', '#63B8FF', '#104E8B', '#344152', '#26466D', '#7EB6FF', '#27408B',  '#1B3F8B', '#1464F4', '#6F7285', '#0000FF'];
+    var yellows = ['#2E0854', '#7F00FF', '#912CEE', '#71637D', '#BF5FFF', '#4B0082', '#BDA0CB', '#68228B', '#AA00FF', '#7A378B', '#D15FEE', '#CC00FF', '#CDB5CD', '#4F2F4F', '#DB70DB', '#EE00EE', '#584E56', '#8E236B', '#B272A6'];
+    var colorArr = [blues, reds, oranges, greens, purples, yellows, skinTone1, griffindor, bluegray, downtown, lightblues, darkTones1, summertime, nightroses, coolcolors, winered, dustybeach, saltlamp, junkCarLot, autumnColors, cherrySoda];
+    var randColors = colorArr[Math.floor(Math.random() * colorArr.length)];
+    for (var i = 0; i < graphData.length; i++) {
+      let fontSize = graphData[i].data;
+      let color = 'xx';
+      var color9 = randColors[Math.floor(Math.random() * randColors.length)];
+      var randFont2 = arrFonts[Math.floor(Math.random() * arrFonts.length)];
+      if (graphData[i].data > 40){
+         fontSize = 40;
+      }
+      if (graphData[i].data < 12){
+         fontSize = 12;
+      }
+        if (i == 80){
+          top = 40;
+          left = 50;
+        }
+        if (i == 79){
+          top = 46;
+          left = 65;
+        }
+        if (i == 78){
+          top = 46;
+          left = 35;
+        }
+        if (i == 77){
+          top = 57;
+          left = 47;
+        }
+        if (i == 76){
+          top = 65;
+          left = 65;
+        }
+        if (i == 75){
+          top = 35;
+          left = 37;
+        }
+        if (i == 74){
+          top = 50;
+          left = 40;
+        }
+        if (i == 73){
+          top = 40;
+          left = 40;
+        }
+        if (i == 72){
+          top = 55;
+          left = 67;
+        }
+        if (i == 71){
+          top = 66;
+          left = 40;
+        }
+        if (i == 70){
+          top = 35;
+          left = 70;
+        }
+        if (i == 69){
+          top = 70;
+          left = 60;
+        }
+        if (i == 68){
+          top = 50;
+          left = 75;
+        }
+        if (i == 67){
+          top = 30;
+          left = 55;
+        }
+        if (i == 66){
+          top = 73;
+          left = 33;
+        }
+        if (i == 65){
+          top = 55;
+          left = 38;
+        }
+        if (i == 64){
+          top = 61;
+          left = 35;
+        }
+        if (i == 63){
+          top = 60;
+          left = 61;
+        }
+        if (i == 62){
+          top = 74;
+          left = 45;
+        }
+        if (i == 61){
+          top = 35;
+          left = 30;
+        }
+        if (i == 60){
+          top = 25;
+          left = 24;
+        }
+        if (i == 59){
+          top = 22;
+          left = 30;
+        }
+        if (i == 58){
+          top = 28;
+          left = 37;
+        }
+        if (i == 57){
+          top = 20;
+          left = 45;
+        }
+        if (i == 56){
+          top = 30;
+          left = 67;
+        }
+        if (i == 55){
+          top = 24;
+          left = 63;
+        }
+        if (i == 54){
+          top = 32;
+          left = 75;
+        }
+        if (i == 53){
+          top = 75;
+          left = 24;
+        }
+        if (i == 52){
+          top = 80;
+          left = 58;
+        }
+        if (i == 51){
+          top = 70;
+          left = 37;
+        }
+        if (i == 50){
+          top = 72;
+          left = 45;
+        }
+        if (i == 49){
+          top = 72;
+          left = 57;
+        }
+        if (i == 48){
+          top = 81;
+          left = 63;
+        }
+        if (i == 47){
+          top = 70;
+          left = 75;
+        }
+        if (i == 46){
+          top = 65;
+          left = 22;
+        }
+        if (i == 45){
+          top = 54;
+          left = 23;
+        }
+        if (i == 44){
+          top = 45;
+          left = 27;
+        }
+        if (i == 43){
+          top = 36;
+          left = 24;
+        }
+        if (i == 42){
+          top = 34;
+          left = 47;
+        }
+        if (i == 41){
+          top = 40;
+          left = 77;
+        }
+        if (i == 40){
+          top = 70;
+          left = 52;
+        }
+        if (i == 39){
+          top = 64;
+          left = 52;
+        }
+        if (i == 38){
+          top = 50;
+          left = 15;
+        }
+        if (i == 37){
+          top = 45;
+          left = 13;
+        }
+        if (i == 36){
+          top = 47;
+          left = 9;
+        }
+        if (i == 35){
+          top = 55;
+          left = 6;
+        }
+        if (i == 34){
+          top = 69;
+          left = 11;
+        }
+        if (i == 33){
+          top = 40;
+          left = 17;
+        }
+        if (i == 32){
+          top = 43;
+          left = 10;
+        }
+        if (i == 31){
+          top = 35;
+          left = 14;
+        }
+        if (i == 30){
+          top = 30;
+          left = 20;
+        }
+        if (i == 29){
+          top = 55;
+          left = 85;
+        }
+        if (i == 28){
+          top = 62;
+          left = 78;
+        }
+        if (i == 27){
+          top = 40;
+          left = 80;
+        }
+        if (i == 26){
+          top = 45;
+          left = 90;
+        }
+        if (i == 25){
+          top = 20;
+          left = 70;
+        }
+        if (i == 24){
+          top = 17;
+          left = 67;
+        }
+        if (i == 23){
+          top = 10;
+          left = 60;
+        }
+        if (i == 22){
+          top = 90;
+          left = 63;
+        }
+        if (i == 21){
+          top = 83;
+          left = 67;
+        }
+        if (i == 20){
+          top = 80;
+          left = 73;
+        }
+        if (i == 19){
+          top = 70;
+          left = 79;
+        }
+        if (i == 18){
+          top = 12;
+          left = 50;
+        }
+        if (i == 17){
+          top = 8;
+          left = 60;
+        }
+        if (i == 16){
+          top = 10;
+          left = 38;
+        }
+        if (i == 15){
+          top = 14;
+          left = 14;
+        }
+        if (i == 14){
+          top = 90;
+          left = 60;
+        }
+        if (i == 13){
+          top = 93;
+          left = 50;
+        }
+        if (i == 12){
+          top = 87;
+          left = 75;
+        }
+        if (i == 11){
+          top = 90;
+          left = 84;
+        }
+        if (i == 10){
+          top = 78;
+          left = 94;
+        }
+        if (i == 9){
+          top = 86;
+          left = 45;
+        }
+        if (i == 8){
+          top = 90;
+          left = 38;
+        }
+        if (i == 7){
+          top = 85;
+          left = 25;
+        }
+        if (i == 6){
+          top = 75;
+          left = 15;
+        }
+        if (i == 5){
+          top = 68;
+          left = 10;
+        }
+        if (i == 4){
+          top = 60;
+          left = 7;
+        }
+        if (i == 3){
+          top = 8;
+          left = 93;
+        }
+        if (i == 2){
+          top = 13;
+          left = 85;
+        }
+        if (i == 1){
+          top = 17;
+          left = 89;
+        }
+        if (i == 0){
+          top = 22;
+          left = 78;
+        }
+
+      var plot = `<a class="hoverBtn" style="Font-Family:${randFont2},sans-serif;position:absolute;top:${top}%;left:${left}%;font-size:${fontSize}px;color:${color9}">${graphData[i].word}</a>`;
+
+      $('#display1').append(plot);
+      top = 50;
+      left = 50;
+
+    }
+    var scriptureObj;
+    if (allResults.length == 3){
+      scriptureObj = allResults[2];
+      scriptureText = `<h3>${scriptureObj.ref}</h3>
+                      <h5>${scriptureObj.scr_text}</h5>`;
+      $('#display1').append(scriptureText);
+    }
+
+    var allElements = $(".hoverBtn");
+    console.log(allElements);
+
+    var arrayOfWordsToSubmit = [];
+    $( ".hoverBtn" ).mouseenter(function() {
+      var currentWord = $(this).html();
+      var currentList = [];
+      for (var i = 0; i < graphData.length; i++) {
+        if (graphData[i].word == currentWord){
+          currentList = graphData[i].matches;
+        }
+      }
+      $(this).removeClass('hoverBtn');
+      $(this).removeClass('hoverBtn2');
+      $(this).addClass('hoverBtn3');
+      for (var i = 0; i < allElements.length; i++) {
+        if( currentList.indexOf(allElements[i].innerHTML) > -1 || allElements[i].innerHTML == currentWord) {
+          allElements[i].className = 'hoverBtn3';
+        } else {
+          allElements[i].className = 'opacity';
+        }
+      }
+
+    });
+
+    $( ".hoverBtn" ).mouseleave(function() {
+      for (var i = 0; i < allElements.length; i++) {
+        if (allElements[i].className != 'hoverBtn2'){
+          allElements[i].className = 'hoverBtn';
+        }
+      }
+
+    });
+
+    $('.hoverBtn').click(function(){
+      var currentWord = $(this).html();
+      $('#wordList').html('');
+      arrayOfWordsToSubmit.push(currentWord);
+      $(this).removeClass('hoverBtn3');
+      $(this).removeClass('hoverBtn');
+      $(this).addClass('hoverBtn2');
+      for (var i = 0; i < arrayOfWordsToSubmit.length; i++) {
+        word3 = `<h5>-${ arrayOfWordsToSubmit[i] }-</h5> `;
+        document.getElementById('wordList').innerHTML += word3;
+      }
+    });
+
+  });
+</script>
+
+
+<div id="display1"></div>
+
+
+{% endblock %}

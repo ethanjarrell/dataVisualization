@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="books.png" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type='text/javascript'>
+      $(document).ready(function(){
+        var input2 = document.getElementById('input1');
+        input2.oninput = function() {
+          input2.value = input2.value.toLowerCase()
+        }
+        $( ".submit" ).click(function( event ) {
+          event.preventDefault();
+          var input = $('#input1').val();
+          if (input.indexOf(":") > -1){
+            $("#bubbleForm").attr("action", 'bubbles2');
+          }
+          $('#bubbleForm').submit();
+        });
+        });
+      </script>
+      <style type="text/css">
+        .addtopic {
+          background-color: #7592c4;
+          color: white;
+          height: 25px;
+          cursor: pointer;
+        }
+        .invisible {
+            display: none;
+        }
+        .visible {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background-color:rgba(50,50,50,.8);
+            z-index: 10;
+            position: absolute;
+        }
+        .submit {
+          background-color: #7592c4;
+          color: white;
+          height: 25px;
+          cursor: pointer;
+        }
+        .submit {
+          height: 25px;
+          font-size: 20px;
+          border-style: solid;
+          border-width: 1px;
+          border-color: black;
+        }
+        .addtopic:hover {
+          background-color: white;
+          color: #7592c4;
+        }
+        .s1 {
+          height: 25px;
+          font-size: 20px;
+        }
+        .submit:hover {
+          background-color: white;
+          color: #7592c4;
+        }
+      </style>
+    <title>Trump Search</title>
+  </head>
+  <body>
+    <div id="navBar1" style="display:flex;flex-flow:row wrap;justify-content:center;align-items:center;width:100%;background-color:#e1e9f7;height:45px;">
+      <form id="bubbleForm" action="bubbles" method="post">
+                <input class="s1" id="input1" name="s1" />
+                <button class="submit" >⇨</button>
+
+        </form>
+  </div>
+    {% block content %}{% endblock %}
+  </body>
+</html>
