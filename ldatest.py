@@ -62,5 +62,5 @@ def returnTopics(s1):
                 'matches': wordArr
             }
             dataArr.append(hash2)
-    # print (dataArr)
+    print (dataArr)
     return dataArr, s1
